@@ -166,7 +166,7 @@ Outputs:
   redes2PublicSubnetProd1a:
     Description: Public Subnet Prod 1a
     Value:
-      Ref: redes2-public-subnet-prod-1a
+      Ref: redes2PublicSubnetProd1a
     Export:
       Name:
         Fn::Sub: ${AWS::StackName}-public-subnet-prod-1a
@@ -174,7 +174,7 @@ Outputs:
   redes2PublicSubnetProd1b:
     Description: Public Subnet Prod 1b
     Value:
-      Ref: redes2-public-subnet-prod-1b
+      Ref: redes2PublicSubnetProd1b
     Export:
       Name:
         Fn::Sub: ${AWS::StackName}-public-subnet-prod-1b
