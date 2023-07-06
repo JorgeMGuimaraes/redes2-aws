@@ -75,7 +75,7 @@ Resources:
         - IpProtocol: tcp
           FromPort: 443
           ToPort: 443
-          SourceSecurityGroupId:
+          CidrIp:
             Ref: UserIp1
           Description: HTTPS UserIp1
 
@@ -90,7 +90,7 @@ Resources:
         - IpProtocol: tcp
           FromPort: 443
           ToPort: 443
-          SourceSecurityGroupId:
+          CidrIp:
             Ref: UserIp2
           Description: HTTPS UserIp2
 
@@ -105,7 +105,7 @@ Resources:
         - IpProtocol: tcp
           FromPort: 443
           ToPort: 443
-          SourceSecurityGroupId:
+          CidrIp:
             Ref: UserIp3
           Description: HTTPS UserIp3
 
