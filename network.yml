@@ -1,0 +1,180 @@
+#------------------------------------------------------------------------------#
+# Redes 2
+#------------------------------------------------------------------------------#
+# Descricao: Este template cria um stack base com uma VPC, suas subnets,
+# gateways, security groups e afins
+#------------------------------------------------------------------------------#
+AWSTemplateFormatVersion: 2010-09-09
+Description: Infraestrutura de rede (VPC, Subnets, Gateways, etc)
+Metadata:
+  Version: 0.5
+  LastUpdated: 2023-07-05
+  Authors:
+    - jmguimaraes@id.uff.br
+    - arthur_alves@id.uff.br
+    - yurinogueira@id.uff.br
+  Url: https://
+ 
+ #------------------------------------------------------------------------------#
+# Parameters
+#------------------------------------------------------------------------------#
+Parameters:
+  # Network CIDR blocks
+  #--------------------
+  vpcCIDR:
+    Type: String
+    Default: 10.0.0.0/16
+    Description: CIDR block da VPC
+  publicSubnetProd1aCIDR:
+    Type: String
+    Default: 10.0.0.0/20
+    Description: CIDR block da subnet publica 1a
+  privateSubnetProd1aCIDR:
+    Type: String
+    Default: 10.0.16.0/20
+    Description: CIDR block da subnet privada 1a
+  publicSubnetProd1bCIDR:
+    Type: String
+    Default: 10.0.32.0/20
+    Description: CIDR block da subnet publica 1b
+  privateSubnetProd1bCIDR:
+    Type: String
+    Default: 10.0.48.0/20
+    Description: CIDR block da subnet privada 1b
+
+Resources:
+# VPC, Gateways
+#--------------
+  redes2VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock:
+        Ref: vpcCIDR
+      EnableDnsHostnames: true
+      EnableDnsSupport: true
+      Tags:
+        - Key: Name
+          Value: redes2-vpc-prod #!Join ['', [!Ref "AWS::StackName", "-VPC" ]]
+
+  redes2InternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: redes2-internet-gateway
+  redes2VPCGatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      InternetGatewayId:
+        Ref: redes2InternetGateway
+      VpcId:
+        Ref: redes2VPC
+
+# Subnets
+#--------
+  redes2PublicSubnetProd1a:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone:
+        Fn::Select:
+          - 0
+          - Fn::GetAZs: ""
+      CidrBlock:
+        Ref: publicSubnetProd1aCIDR
+      VpcId:
+        Ref: redes2VPC
+      MapPublicIpOnLaunch: false
+      Tags:
+        - Key: Name
+          Value: redes2-public-subnet-prod-1a
+
+  redes2PublicSubnetProd1b:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone:
+        Fn::Select:
+          - 1
+          - Fn::GetAZs: ""
+      CidrBlock:
+        Ref: publicSubnetProd1bCIDR
+      VpcId:
+        Ref: redes2VPC
+      MapPublicIpOnLaunch: false
+      Tags:
+        - Key: Name
+          Value: redes2-public-subnet-prod-1b
+
+# Route Tables
+#-------------
+  redes2PublicRouteTableProd:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Ref: redes2VPC
+      Tags:
+        - Key: Name
+          Value: redes2-public-route-table-prod
+
+  redes2PublicRouteIgwProd:
+    Type: AWS::EC2::Route
+    DependsOn: redes2VPCGatewayAttachment
+    Properties:
+      RouteTableId:
+        Ref: redes2PublicRouteTableProd
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId:
+        Ref: redes2InternetGateway
+
+  redes2PublicSubnetRouteTableAssociationProd1a:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: redes2PublicSubnetProd1a
+      RouteTableId:
+        Ref: redes2PublicRouteTableProd
+
+  redes2PublicSubnetRouteTableAssociationProd1b:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: redes2PublicSubnetProd1b
+      RouteTableId:
+        Ref: redes2PublicRouteTableProd
+
+#------------------------------------------------------------------------------#
+# Outputs
+#------------------------------------------------------------------------------#
+Outputs:
+  redes2StackVPC:
+    Description: VPC ID
+    Value:
+      Ref: redes2VPC
+    Export:
+      Name:
+        Fn::Sub: ${AWS::StackName}-vpc-prod
+
+  redes2VpcCidr:
+    Description: VPC CIDR
+    Value:
+      Fn::GetAtt:
+        - redes2VPC
+        - CidrBlock
+    Export:
+      Name:
+        Fn::Sub: ${AWS::StackName}-redes2VpcCidr
+  
+  redes2PublicSubnetProd1a:
+    Description: Public Subnet Prod 1a
+    Value:
+      Ref: redes2-public-subnet-prod-1a
+    Export:
+      Name:
+        Fn::Sub: ${AWS::StackName}-public-subnet-prod-1a
+
+  redes2PublicSubnetProd1b:
+    Description: Public Subnet Prod 1b
+    Value:
+      Ref: redes2-public-subnet-prod-1b
+    Export:
+      Name:
+        Fn::Sub: ${AWS::StackName}-public-subnet-prod-1b
