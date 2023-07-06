@@ -1,0 +1,146 @@
+#------------------------------------------------------------------------------#
+# Redes 2
+#------------------------------------------------------------------------------#
+# Descricao: Este template cria um stack de seguranca com security groups
+#------------------------------------------------------------------------------#
+AWSTemplateFormatVersion: 2010-09-09
+Description: Infraestrutura de rede (Security Groups)
+Metadata:
+  Version: 0.5
+  LastUpdated: 2023-07-05
+  Authors:
+    - jmguimaraes@id.uff.br
+    - arthur_alves@id.uff.br
+    - yurinogueira@id.uff.br
+  Url: https://
+ 
+#------------------------------------------------------------------------------#
+# Parameters
+#------------------------------------------------------------------------------#
+Parameters:
+  # Geral
+  #------
+  NetworkStack:
+    Type: String
+    Default: network
+    Description: Nome do stack de rede
+
+  # Usuarios
+  #---------
+  UserIp1:
+    Type: String
+    Default: 127.127.127.127/32
+    Description: Yuri Nogueira
+  
+  UserIp2:
+    Type: String
+    Default: 127.127.127.127/32
+    Description: Jorge Guimarães ou Arthur Alves
+  
+  UserIp3:
+    Type: String
+    Default: 127.127.127.127/32
+    Description: Convidado
+
+#------------------------------------------------------------------------------#
+# Resources
+#------------------------------------------------------------------------------#
+Resources:
+
+  # EC2: ssh
+  #---------
+  redes2SecurityGroupSSH:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Acesso SSH
+      VpcId:
+        Fn::ImportValue:
+          Fn::Sub: ${NetworkStack}-vpc-prod
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp:
+            Ref: UserIp1
+          Description:  Yuri Nogueira SSH
+
+  redes2SecurityGroupUser1Http:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Acesso HTTP e HTTPS
+      VpcId:
+        Fn::ImportValue:
+          Fn::Sub: ${NetworkStack}-vpc-prod
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          SourceSecurityGroupId:
+            Ref: UserIp1
+          Description: HTTPS UserIp1
+
+  redes2SecurityGroupUser2Http:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Acesso HTTP e HTTPS
+      VpcId:
+        Fn::ImportValue:
+          Fn::Sub: ${NetworkStack}-vpc-prod
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          SourceSecurityGroupId:
+            Ref: UserIp2
+          Description: HTTPS UserIp2
+
+  redes2SecurityGroupUser3Http:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Acesso HTTP e HTTPS
+      VpcId:
+        Fn::ImportValue:
+          Fn::Sub: ${NetworkStack}-vpc-prod
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          SourceSecurityGroupId:
+            Ref: UserIp3
+          Description: HTTPS UserIp3
+
+#------------------------------------------------------------------------------#
+# Outputs
+#------------------------------------------------------------------------------#
+Outputs:
+  redes2SecurityGroupSSH:
+    Description: Security Group SSH
+    Value:
+      Ref: redes2SecurityGroupSSH
+    Export:
+      Name:
+        Fn::Sub: ${AWS::StackName}-redes2-sg-ssh
+
+  redes2SecurityGroupUser1Http:
+    Description: Security Group User1 HTTP
+    Value:
+      Ref: redes2SecurityGroupUser1Http
+    Export:
+      Name:
+        Fn::Sub: ${AWS::StackName}-redes2-sg-user1-https
+
+  redes2SecurityGroupUser2Http:
+    Description: Security Group User2 HTTP
+    Value:
+      Ref: redes2SecurityGroupUser2Http
+    Export:
+      Name:
+        Fn::Sub: ${AWS::StackName}-redes2-sg-user2-http
+
+  redes2SecurityGroupUser3Http:
+    Description: Security Group User3 HTTP
+    Value:
+      Ref: redes2SecurityGroupUser3Http
+    Export:
+      Name:
+        Fn::Sub: ${AWS::StackName}-redes2-sg-user3-http

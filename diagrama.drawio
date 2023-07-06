@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-07-06T01:05:25.919Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" etag="rPddeFei8enSYAHvUBwG" version="21.6.1" type="device" pages="3">
+<mxfile host="app.diagrams.net" modified="2023-07-06T01:28:16.169Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" etag="aVhtFLA5PGjKCc4ffhJ0" version="21.6.1" type="device" pages="3">
   <diagram name="Page-1" id="MPmvObjzKeXvOLPPdbal">
-    <mxGraphModel dx="1418" dy="815" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="2282" dy="815" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -64,8 +64,8 @@
         <mxCell id="cJ-ZxG3CTzg3LTMBy9cQ-81" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;text-decoration:underline;&quot;&gt;&lt;b&gt;Outbound&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;0.0.0.0/0&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fontColor=#000000;fillColor=none;" parent="1" vertex="1">
           <mxGeometry x="618" y="280" width="102" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="cJ-ZxG3CTzg3LTMBy9cQ-82" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;text-decoration:underline;&quot;&gt;&lt;b&gt;Inbound&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;ip 1&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;(x.x.x.x/32)&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;ip 2 (y.y.y.y/32)&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;ip 3 (z.z.z.z/32)&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fontColor=#000000;fillColor=none;" parent="1" vertex="1">
-          <mxGeometry x="618" y="158" width="102" height="90" as="geometry" />
+        <mxCell id="cJ-ZxG3CTzg3LTMBy9cQ-82" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;text-decoration:underline;&quot;&gt;&lt;b&gt;Inbound&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;ip 1&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;(x.x.x.x/32 port: 443)&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;ip 1&amp;nbsp;(x.x.x.x/32 port: 22)&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;ip 2 (y.y.y.y/32 port: 443)&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;ip 3 (z.z.z.z/32 port: 443)&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fontColor=#000000;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="618" y="158" width="152" height="90" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
