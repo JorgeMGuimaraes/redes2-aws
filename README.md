@@ -2,10 +2,6 @@
 
 Demonstração do funcionamento dos métodos de segurança de rede na nuvem. 
 
-## Arquitetura
-
-![arquitetura](./diagrama.drawio "Arquitetura AWS")
-
 ## Como utilizar?
 
 > * É necessária uma conta na AWS, acesso ao Console Web e privilégios para criação de recursos. Se sua conta possui privilégios de admin, não terá problemas.
