@@ -2,6 +2,12 @@
 
 Demonstração do funcionamento dos métodos de segurança de rede na nuvem. 
 
+## Apresentação
+
+[Apresentação Online](https://gamma.app/docs/Infraestrutura-AWS-Cloud-kpn8ob0f367zrbe?mode=doc)
+
+No link acima pode se encontrar a apresentação feita para e demonstração, com conceitos básicos de elementos de infraestrututra de redes, assom como uma representação da arquitetura final.
+
 ## Como utilizar?
 
 > * É necessária uma conta na AWS, acesso ao Console Web e privilégios para criação de recursos. Se sua conta possui privilégios de admin, não terá problemas.
